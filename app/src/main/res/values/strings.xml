@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MultibankMvi</string>
+
+    <string name="button_add">Place Order</string>
+    <string name="button_delete_competed_tasks">Delete completed tasks</string>
+    <string name="new_task_hint">New task</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

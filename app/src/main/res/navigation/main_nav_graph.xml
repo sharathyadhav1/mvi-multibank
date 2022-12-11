@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.multibank.mvi.ui.components.home.HomeFragment"
+        android:label="Orders"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_homeDetailFragment"
+            app:destination="@id/homeDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeDetailFragment"
+        android:name="com.multibank.mvi.HomeDetailFragment"
+        android:label="Order Details"
+        tools:layout="@layout/fragment_home_detail" >
+
+    <argument
+        android:name="Task"
+        app:nullable="true"
+        app:argType="com.multibank.mvi.ui.model.Task" />
+    </fragment>
+
+</navigation>
