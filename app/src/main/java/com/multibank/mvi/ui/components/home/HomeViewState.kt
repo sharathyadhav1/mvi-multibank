@@ -8,19 +8,19 @@ import com.multibank.mvi.ui.components.home.mvi.HomeResult
 import com.multibank.mvi.ui.components.home.mvi.HomeResult.*
 import com.multibank.mvi.ui.model.Task
 import kotlinx.parcelize.Parcelize
-import java.util.*
 
 @Parcelize
 data class HomeViewState(
     val inProgress: Boolean,
     val tasks: List<Task>?,
     val newTaskAdded: ViewStateEmptyEvent?,
+    val onLoadTask: ViewStateEmptyEvent?,
     val error: ViewStateErrorEvent?
 ): MviViewState<HomeResult> {
 
     companion object {
 
-        fun default() = HomeViewState(false, null, null, null)
+        fun default() = HomeViewState(false, null, null, null,null)
     }
 
     override fun reduce(result: HomeResult): HomeViewState {
@@ -47,7 +47,10 @@ data class HomeViewState(
 
     private fun LoadTasksResult.reduce() = this@HomeViewState.copy(
         inProgress = false,
-        tasks = tasks
+        tasks = tasks,
+        onLoadTask=ViewStateEmptyEvent()
+
+
     )
 
     private fun AddTaskResult.reduce() = this@HomeViewState.copy(

@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.multibank.mvi.R
 import com.multibank.mvi.databinding.FragmentHomeBinding
 import com.multibank.mvi.ui.base.mvi.mviViewModel
 import com.multibank.mvi.ui.components.home.recyclerview.TasksAdapter
@@ -27,7 +26,6 @@ class HomeFragment: Fragment() {
     private val tasksAdapter = TasksAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-      //  return inflater.inflate(R.layout.fragment_home, container, false)
         binding = FragmentHomeBinding.inflate(layoutInflater)
         return binding.root
 
@@ -50,6 +48,7 @@ class HomeFragment: Fragment() {
         super.onStart()
         homeViewModel.init(::render).addTo(onStopDisposables)
         homeViewModel.loadDataIfNeeded()
+
     }
 
     override fun onStop() {
@@ -60,7 +59,7 @@ class HomeFragment: Fragment() {
     private fun render(viewState: HomeViewState) {
         with(viewState) {
             binding.progressBar.isVisible = inProgress
-           // binding.newTaskInput.isEnabled = !inProgress
+            // binding.newTaskInput.isEnabled = !inProgress
             binding.addTaskButton.isEnabled = !inProgress
 
 
@@ -68,14 +67,22 @@ class HomeFragment: Fragment() {
                 tasksAdapter.updateList(it)
             }
 
-           /* newTaskAdded?.consume {
-                binding.newTaskInput.setText("")
-            }*/
+            viewState.onLoadTask?.let {
+
+                if(viewState.tasks!=null && viewState.tasks.size>0)
+                    homeViewModel.updateDeliveredTask()
+            }
+
+
+
 
             error?.consume {
-                Toast.makeText(requireContext(), "Error occurred", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(requireContext(), "Error occurred"+it.message, Toast.LENGTH_SHORT).show()
             }
         }
+
+
+
     }
 
     private fun initTasksRecyclerView() {

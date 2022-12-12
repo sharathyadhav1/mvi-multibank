@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeDetailFragment"
-        android:name="com.multibank.mvi.HomeDetailFragment"
+        android:name="com.multibank.mvi.ui.components.home.HomeDetailFragment"
         android:label="Order Details"
         tools:layout="@layout/fragment_home_detail" >
 

@@ -11,7 +11,7 @@ interface TaskRepository {
 
     fun getAllTasks(): List<Task>
 
-    fun getAllDoneTasks(): List<Task>
+    fun getAllDoneTasks(time :Long): List<Task>
 
     fun updateTask(task: Task)
 

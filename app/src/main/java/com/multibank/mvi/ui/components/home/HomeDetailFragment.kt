@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
-import com.multibank.mvi.HomeDetailFragmentArgs
 import com.multibank.mvi.databinding.FragmentHomeBinding
 import com.multibank.mvi.databinding.FragmentHomeDetailBinding
 import java.text.SimpleDateFormat

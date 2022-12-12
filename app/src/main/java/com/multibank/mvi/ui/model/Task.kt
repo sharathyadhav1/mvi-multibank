@@ -11,7 +11,7 @@ data class Task(
     val status: String,
     val isDone: Boolean,
     val createdDate: Long,
-    val deliveredDate: Long
+    var deliveredDate: Long
 ): Parcelable
 
 fun Task.toTaskEntity() = TaskEntity(

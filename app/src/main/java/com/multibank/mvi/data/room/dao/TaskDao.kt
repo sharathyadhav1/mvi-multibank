@@ -9,8 +9,9 @@ interface TaskDao {
     @Query("SELECT * FROM task")
     fun getAll(): List<TaskEntity>
 
-    @Query("SELECT * FROM task where isDone = 1")
-    fun getAllDone(): List<TaskEntity>
+
+    @Query("SELECT * FROM task where status = 'DELIVERED' and deliveredDate< (:current_time-15000)")
+    fun getAllDone(current_time: Long ): List<TaskEntity>
 
     @Query("SELECT * FROM task WHERE id IN (:id)")
     fun getForId(id: Long): List<TaskEntity>

@@ -18,4 +18,5 @@ sealed class HomeAction: MviAction {
     data class DeleteStatusAction(val taskId: Long, val status: String): HomeAction()
 
     object DeleteCompletedTasksAction: HomeAction()
+
 }

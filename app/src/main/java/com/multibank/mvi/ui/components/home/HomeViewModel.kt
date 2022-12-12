@@ -64,4 +64,39 @@ class HomeViewModel(savedStateHandle : SavedStateHandle): MviViewModel<HomeActio
         }
 
     }
+
+
+    fun updateDeliveredTask() {
+        if(viewState.tasks!=null)
+        {
+            var is_completed_called= false
+            for (task in viewState.tasks!!) {
+
+                if(task.status == TasksAdapter.onStatus.DELIVERED.toString())
+                {
+                    if(task.deliveredDate>0 && task.deliveredDate<System.currentTimeMillis()-15000)
+                    {
+                        if(!is_completed_called)
+                        {
+                            is_completed_called =true;
+                            accept(DeleteCompletedTasksAction)
+                        }
+
+                    }
+                    else
+                    {
+                        viewModelScope.launch {
+                            delay(15000 - (System.currentTimeMillis()-task.deliveredDate) )
+                            accept(DeleteStatusAction(task.id, TasksAdapter.onStatus.DELIVERED.toString()))
+
+                        }
+                    }
+                }
+
+
+            }
+        }
+
+    }
+
 }

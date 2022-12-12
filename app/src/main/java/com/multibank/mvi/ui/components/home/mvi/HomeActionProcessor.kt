@@ -83,6 +83,8 @@ class HomeActionProcessor: MviActionsProcessor<HomeAction, HomeResult>(), KoinCo
     }
 
 
+
+
     private val updateStatusActionProcessor = createActionProcessor<UpdateStatusAction, HomeResult>(
         schedulersProvider,
         { InProgressResult },
@@ -90,8 +92,10 @@ class HomeActionProcessor: MviActionsProcessor<HomeAction, HomeResult>(), KoinCo
     ) { action ->
         val task = taskRepository.getTask(action.taskId)?.copy(status = action.status)
         val updateTaskResult = if (task == null) {
-            ErrorResult(Exception("Task with id ${action.taskId} not found in DB"))
+            ErrorResult(Exception("Task with id ${action.taskId} not found in DB updateStatusActionProcessor"))
         } else {
+            if(task.status == TasksAdapter.onStatus.DELIVERED.toString())
+                task.deliveredDate =  System.currentTimeMillis()
             taskRepository.updateTask(task)
             UpdateTaskResult(task)
         }
@@ -119,14 +123,18 @@ class HomeActionProcessor: MviActionsProcessor<HomeAction, HomeResult>(), KoinCo
         onCompleteSafe()
     }
 
+
+
     private val deletedCompletedTasksActionProcessor = createActionProcessor<DeleteCompletedTasksAction, HomeResult>(
         schedulersProvider,
         { InProgressResult},
         { t -> ErrorResult(t) }
     ) {
-        val doneTasks = taskRepository.getAllDoneTasks()
+        val doneTasks = taskRepository.getAllDoneTasks(System.currentTimeMillis())
         taskRepository.delete(doneTasks)
-        onNextSafe(DeleteCompletedTasksResult(doneTasks))
+
+
+        onNextSafe(LoadTasksResult(taskRepository.getAllTasks()))
         onCompleteSafe()
     }
 }

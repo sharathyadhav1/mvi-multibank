@@ -29,9 +29,9 @@ class TaskRepositoryImpl(
             .map { it.toTask() }
     }
 
-    override fun getAllDoneTasks(): List<Task> {
+    override fun getAllDoneTasks(time: Long): List<Task> {
         return taskDao
-            .getAllDone()
+            .getAllDone(time)
             .map { it.toTask() }
     }
 
@@ -48,4 +48,6 @@ class TaskRepositoryImpl(
         taskDao
             .deleteSingle(task.toTaskEntity())
     }
+
+
 }
