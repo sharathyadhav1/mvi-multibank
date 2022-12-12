@@ -16,3 +16,7 @@ UI:
 2.Button to Place order (Creates an entry in the database using Room database and di(koin) for modules )
 3.Recycle view and button with 4 state (New, Preparing, Ready, Delivered)
 4.Once the button changes to the delivered state will disappear in 15 seconds
+
+
+https://user-images.githubusercontent.com/8912909/207075549-0f8cb3ac-778b-49ab-b8f0-d3d37923a62b.mp4
+
